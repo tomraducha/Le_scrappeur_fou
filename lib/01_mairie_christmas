@@ -1,1 +1,2 @@
-require_relative '../lib/01_mairie_christmas'
+require 'nokogiri'
+require 'open-uri'
