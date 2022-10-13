@@ -4,6 +4,7 @@
 
 
 Dark Trader
+</br>
     • Récupérer le cours de toutes les cryptomonnaies du marché.
 
 
