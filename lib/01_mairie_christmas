@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 
-# Récupère l’e-mail d'une mairie à partir de l'URL de celle-ci.
+# Récupère l’e-mail d'une mairie à partir de l'URL de celle-ci
 def get_townhall_email(townhall_url)
   townhall = Nokogiri::HTML(URI.open(townhall_url))
   email = townhall.css('/html/body/div/main/section[2]/div/table/tbody/tr[4]/td[2]').text
