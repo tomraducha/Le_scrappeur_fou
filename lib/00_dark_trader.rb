@@ -26,14 +26,9 @@ def final(link)
   return final
 end
 
+puts final(website)
+
 # .zip=>lie les deux tableaux
-
-
-
-
-
-
-
 
 # require 'nokogiri'
 # require 'open-uri'

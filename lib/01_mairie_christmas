@@ -1,2 +1,27 @@
 require 'nokogiri'
 require 'open-uri'
+
+# Récupère l’e-mail d'une mairie à partir de l'URL de celle-ci.
+def get_townhall_email(townhall_url)
+  townhall = Nokogiri::HTML(URI.open(townhall_url))
+  email = townhall.css('/html/body/div/main/section[2]/div/table/tbody/tr[4]/td[2]').text
+  return email
+end
+
+def get_townhall_urls_and_names
+  page = Nokogiri::HTML(URI.open('http://annuaire-des-mairies.com/val-d-oise.html'))
+  urls = page.css('//a[@class=lientxt]').map { |a| { 'url' => 'http://annuaire-des-mairies.com' + a['href'].to_s[1, a['href'].to_s.length], 'name' => a.text } }
+  return urls
+end
+
+def get_all_emails
+  urls_and_names = get_townhall_urls_and_names
+  emails = urls_and_names.map { |city| get_townhall_email(city['url']) }
+  names = urls_and_names.map { |city| city['name'] }
+
+  final = names.zip(emails).to_h
+  return final
+end
+
+print get_all_emails
+puts
