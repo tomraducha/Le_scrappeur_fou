@@ -1,8 +1,9 @@
 require 'nokogiri'
 require 'open-uri'
 
-website = Nokogiri::HTML(URI.open('https://coinmarketcap.com/all/views/all/'))
+urls = Nokogiri::HTML(URI.open('https://coinmarketcap.com/all/views/all/'))
 
+# Récupère tous les symbole à partir de l'url
 def all_cryptocurrencies(link)
   bourse = []
   link.xpath('//tr/td[2]/div/a[1]').each do |i|
@@ -11,6 +12,7 @@ def all_cryptocurrencies(link)
   return bourse
 end
 
+# Récupère tous les prix à partir de l'url
 def all_price(link)
   price = []
   link.xpath('//tr/td[5]/div/a/span').each do |j|
@@ -19,6 +21,7 @@ def all_price(link)
   return price
 end
 
+# Imbrique les symbole des crypto-monnaies avec leurs prix
 def final(link)
   final_crypto = all_cryptocurrencies(link)
   final_value = all_price(link)
@@ -26,7 +29,7 @@ def final(link)
   return final
 end
 
-puts final(website)
+puts final(urls)
 
 # require 'nokogiri'
 # require 'open-uri'

@@ -8,12 +8,14 @@ def get_townhall_email(townhall_url)
   return email
 end
 
+# Récupère les e-mails des mairie du val d'oise à partir des l'URL de celle-ci, aisni que les noms des villes
 def get_townhall_urls_and_names
   page = Nokogiri::HTML(URI.open('http://annuaire-des-mairies.com/val-d-oise.html'))
   urls = page.css('//a[@class=lientxt]').map { |a| { 'url' => 'http://annuaire-des-mairies.com' + a['href'].to_s[1, a['href'].to_s.length], 'name' => a.text } }
   return urls
 end
 
+# Imbrique les emails avec les noms des villes
 def get_all_emails
   urls_and_names = get_townhall_urls_and_names
   emails = urls_and_names.map { |city| get_townhall_email(city['url']) }
